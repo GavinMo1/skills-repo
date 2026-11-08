@@ -1,6 +1,6 @@
 {
   "name": "@gavinmo1/skills",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Agent skills collection",
   "type": "module",
   "bin": {
@@ -33,4 +33,3 @@
     "url": "git+https://github.com/GavinMo1/skills-repo.git"
   }
 }
-

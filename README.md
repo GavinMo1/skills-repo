@@ -4,31 +4,50 @@ Agent skill 集合。每个 skill 是 `skills/` 下的一个目录，目录里�
 
 ## 安装
 
-不发布到 npm 也能用，直接跑仓库：
+需要 Node.js ≥ 18，无需全局安装任何东西。
+
+**现在可用**（直接从本仓库跑，不依赖 npm 发布）：
 
 ```bash
 npx github:GavinMo1/skills-repo add plan-review-loop
 ```
 
-发布到 npm 后：
+**发布到 npm 之后**（包尚未发布，先别用）：
 
 ```bash
 npx @GavinMo1/skills add plan-review-loop
 ```
 
-常用命令：
+装完即写到 `~/.agents/skills/plan-review-loop/`，agent 下次启动就能读到。
+
+### 常用命令
 
 ```bash
-npx @GavinMo1/skills list                              # 列出可用 skill
-npx @GavinMo1/skills add --all                         # 全部安装
-npx @GavinMo1/skills add plan-review-loop --project    # 装到 ./.agents/skills
-npx @GavinMo1/skills add plan-review-loop --force      # 覆盖（旧版本移入 .trash/）
-npx @GavinMo1/skills add plan-review-loop --link       # 用 junction 指向仓库，改了立即生效
+npx github:GavinMo1/skills-repo list                             # 列出可用 skill
+npx github:GavinMo1/skills-repo add --all                        # 全部安装
+npx github:GavinMo1/skills-repo add plan-review-loop --project   # 装到当前项目 ./.agents/skills
+npx github:GavinMo1/skills-repo add plan-review-loop --force     # 覆盖，旧版本移入 .trash/
+npx github:GavinMo1/skills-repo add plan-review-loop --link      # junction 指向本地克隆，改完立即生效
 ```
 
-默认安装到 `~/.agents/skills/`；用 `--dir <path>` 指定其他位置。
+### 装到哪里
 
-安装器不删除任何东西：覆盖时把旧版本移到目标目录下的 `.trash/<name>-<时间戳>/`。
+| 目标 | 命令 | 结果 |
+|---|---|---|
+| 用户级（默认） | `add <name>` | `~/.agents/skills/<name>/` |
+| 当前项目 | `add <name> --project` | `./.agents/skills/<name>/` |
+| 任意目录 | `add <name> --dir <path>` | `<path>/<name>/` |
+
+若你的 agent 从别的目录读 skill（例如 `~/.claude/skills`），用 `--dir` 指过去即可：
+
+```bash
+npx github:GavinMo1/skills-repo add plan-review-loop --dir ~/.claude/skills
+```
+
+### 安全说明
+
+- **不会删除任何东西**：目标已存在时默认拒绝安装；加 `--force` 才覆盖，且旧版本先移到目标目录下的 `.trash/<name>-<时间戳>/`。
+- 默认整目录复制。`--link` 用 junction/符号链接指向你的本地克隆，适合边改边用，不适合长期保留。
 
 ## 现有 skill
 
@@ -54,4 +73,3 @@ node bin/cli.mjs add plan-review-loop --dir /tmp/skills-test
 ## 许可
 
 MIT
-

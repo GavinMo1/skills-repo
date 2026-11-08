@@ -21,6 +21,10 @@ const exists = async (p) => {
 };
 const stamp = () => new Date().toISOString().replace(/[:.]/g, '-');
 
+// 允许 --dir ~/xxx；PowerShell 不保证替原生命令展开 ~
+const expandHome = (p) =>
+  p === '~' || p.startsWith('~/') || p.startsWith('~\\') ? path.join(os.homedir(), p.slice(1)) : p;
+
 function parseArgs(argv) {
   const opts = { force: false, link: false, all: false, dir: null };
   const positional = [];
@@ -34,7 +38,7 @@ function parseArgs(argv) {
     else if (a === '--dir') {
       const v = argv[++i];
       if (!v) die('--dir 需要一个路径');
-      opts.dir = path.resolve(v);
+      opts.dir = path.resolve(expandHome(v));
     } else if (a === '-h' || a === '--help') {
       printHelp();
       process.exit(0);

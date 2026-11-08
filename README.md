@@ -28,22 +28,22 @@ node skills-repo/bin/cli.mjs add plan-review-loop
 ### 方式三：npm（发布后）
 
 ```bash
-npx @GavinMo1/skills add plan-review-loop
+npx @gavinmo1/skills add plan-review-loop
 ```
 
 > 这个包**尚未发布到 npm**，现在还不能用这条。
 
 ### 常用命令
 
-下文用 `npx @GavinMo1/skills` 代表下面的安装命令；发布前请等量替换成
+下文用 `npx @gavinmo1/skills` 代表下面的安装命令；发布前请等量替换成
 `npx --yes --allow-git=all github:GavinMo1/skills-repo`。
 
 ```bash
-npx @GavinMo1/skills list                             # 列出可用 skill
-npx @GavinMo1/skills add --all                        # 全部安装
-npx @GavinMo1/skills add plan-review-loop --project   # 装到当前项目 ./.agents/skills
-npx @GavinMo1/skills add plan-review-loop --force     # 覆盖，旧版本移入 .trash/
-npx @GavinMo1/skills add plan-review-loop --link      # junction 指向本地克隆，改完立即生效
+npx @gavinmo1/skills list                             # 列出可用 skill
+npx @gavinmo1/skills add --all                        # 全部安装
+npx @gavinmo1/skills add plan-review-loop --project   # 装到当前项目 ./.agents/skills
+npx @gavinmo1/skills add plan-review-loop --force     # 覆盖，旧版本移入 .trash/
+npx @gavinmo1/skills add plan-review-loop --link      # junction 指向本地克隆，改完立即生效
 ```
 
 ### 装到哪里
@@ -89,3 +89,4 @@ node bin/cli.mjs add plan-review-loop --dir /tmp/skills-test
 ## 许可
 
 MIT
+

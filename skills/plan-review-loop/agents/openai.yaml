@@ -1,0 +1,3 @@
+interface:
+  display_name: "方案写评闭环"
+  short_description: "制定或修订可执行方案，独立评审闭环，结合对抗检验与替代解法探索"

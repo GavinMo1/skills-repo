@@ -1,0 +1,32 @@
+{
+  "name": "@OWNER/skills",
+  "version": "0.1.0",
+  "description": "Agent skills collection",
+  "type": "module",
+  "bin": {
+    "skills": "bin/cli.mjs"
+  },
+  "files": [
+    "bin",
+    "skills",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18.17"
+  },
+  "scripts": {
+    "list": "node bin/cli.mjs list",
+    "smoke": "node bin/cli.mjs list"
+  },
+  "keywords": [
+    "agent-skills",
+    "skills",
+    "npx"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OWNER/skills-repo.git"
+  }
+}

@@ -6,7 +6,15 @@ Agent skill 集合。每个 skill 是 `skills/` 下的一个目录，目录里�
 
 需要 Node.js ≥ 18，无需全局安装任何东西。装完写到 `~/.agents/skills/`，agent 下次启动即可读到。
 
-### 方式一：直接从 GitHub 跑（现在可用）
+### 方式一：npm（推荐）
+
+```bash
+npx @gavinmo1/skills add plan-review-loop
+```
+
+包地址：[npmjs.com/package/@gavinmo1/skills](https://www.npmjs.com/package/@gavinmo1/skills)。走 registry，不受 npm 的 `allow-git` 限制影响。
+
+### 方式二：直接从 GitHub 跑
 
 ```bash
 npx github:GavinMo1/skills-repo add plan-review-loop
@@ -18,25 +26,14 @@ npx github:GavinMo1/skills-repo add plan-review-loop
 npx --yes --allow-git=all github:GavinMo1/skills-repo add plan-review-loop
 ```
 
-### 方式二：克隆后本地跑（任何 npm 配置下都可用）
+### 方式三：克隆后本地跑（任何 npm 配置下都可用）
 
 ```bash
 git clone https://github.com/GavinMo1/skills-repo
 node skills-repo/bin/cli.mjs add plan-review-loop
 ```
 
-### 方式三：npm（发布后）
-
-```bash
-npx @gavinmo1/skills add plan-review-loop
-```
-
-> 这个包**尚未发布到 npm**，现在还不能用这条。
-
 ### 常用命令
-
-下文用 `npx @gavinmo1/skills` 代表下面的安装命令；发布前请等量替换成
-`npx --yes --allow-git=all github:GavinMo1/skills-repo`。
 
 ```bash
 npx @gavinmo1/skills list                             # 列出可用 skill
@@ -85,6 +82,25 @@ npx github:GavinMo1/skills-repo add plan-review-loop --dir ~/.claude/skills
 node bin/cli.mjs list
 node bin/cli.mjs add plan-review-loop --dir /tmp/skills-test
 ```
+
+## 发布（维护者）
+
+```bash
+npm version patch          # 或 minor
+git push --follow-tags
+npm publish
+```
+
+npm 现行策略要求发布必须受 2FA 保护。踩过的三个坑，记在这里：
+
+1. **包名必须全小写。** npm 用户名是 `gavinmo1`，scope 只能是 `@gavinmo1/`；写成 `@GavinMo1/` 会被 registry 拒绝。
+2. **非交互环境必须用带 bypass 2FA 权限的 Granular Access Token，且要显式传配置。** `NODE_AUTH_TOKEN` 环境变量 npm **不会自动采用**（它只在 `.npmrc` 里写了 `//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}` 时才生效），所以这样发仍然会 403：
+
+   ```bash
+   npm publish --registry=https://registry.npmjs.org "--//registry.npmjs.org/:_authToken=$NPM_TOKEN"
+   ```
+
+3. **首次发布后包会短暂 404。** registry 传播需要几分钟；`npm publish` 输出 `+ @scope/name@x.y.z` 就表示已被接受，不用重发。
 
 ## 许可
 

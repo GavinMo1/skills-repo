@@ -143,8 +143,8 @@ function printHelp() {
   -h, --help                      显示本帮助
 
 示例:
-  npx github:OWNER/skills-repo add plan-review-loop
-  npx github:OWNER/skills-repo add --all --project
+  npx github:GavinMo1/skills-repo add plan-review-loop
+  npx github:GavinMo1/skills-repo add --all --project
   node bin/cli.mjs add plan-review-loop --dir C:\\tmp\\skills-test`);
 }
 
@@ -162,3 +162,4 @@ if (!cmd || cmd === 'help') {
 } else {
   die(`未知命令 ${cmd}，用 --help 看用法`);
 }
+

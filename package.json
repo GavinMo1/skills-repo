@@ -1,5 +1,5 @@
 {
-  "name": "@OWNER/skills",
+  "name": "@GavinMo1/skills",
   "version": "0.1.0",
   "description": "Agent skills collection",
   "type": "module",
@@ -27,6 +27,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OWNER/skills-repo.git"
+    "url": "git+https://github.com/GavinMo1/skills-repo.git"
   }
 }
+

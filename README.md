@@ -7,23 +7,23 @@ Agent skill 集合。每个 skill 是 `skills/` 下的一个目录，目录里�
 不发布到 npm 也能用，直接跑仓库：
 
 ```bash
-npx github:OWNER/skills-repo add plan-review-loop
+npx github:GavinMo1/skills-repo add plan-review-loop
 ```
 
 发布到 npm 后：
 
 ```bash
-npx @OWNER/skills add plan-review-loop
+npx @GavinMo1/skills add plan-review-loop
 ```
 
 常用命令：
 
 ```bash
-npx @OWNER/skills list                              # 列出可用 skill
-npx @OWNER/skills add --all                         # 全部安装
-npx @OWNER/skills add plan-review-loop --project    # 装到 ./.agents/skills
-npx @OWNER/skills add plan-review-loop --force      # 覆盖（旧版本移入 .trash/）
-npx @OWNER/skills add plan-review-loop --link       # 用 junction 指向仓库，改了立即生效
+npx @GavinMo1/skills list                              # 列出可用 skill
+npx @GavinMo1/skills add --all                         # 全部安装
+npx @GavinMo1/skills add plan-review-loop --project    # 装到 ./.agents/skills
+npx @GavinMo1/skills add plan-review-loop --force      # 覆盖（旧版本移入 .trash/）
+npx @GavinMo1/skills add plan-review-loop --link       # 用 junction 指向仓库，改了立即生效
 ```
 
 默认安装到 `~/.agents/skills/`；用 `--dir <path>` 指定其他位置。
@@ -54,3 +54,4 @@ node bin/cli.mjs add plan-review-loop --dir /tmp/skills-test
 ## 许可
 
 MIT
+

@@ -4,30 +4,46 @@ Agent skill 集合。每个 skill 是 `skills/` 下的一个目录，目录里�
 
 ## 安装
 
-需要 Node.js ≥ 18，无需全局安装任何东西。
+需要 Node.js ≥ 18，无需全局安装任何东西。装完写到 `~/.agents/skills/`，agent 下次启动即可读到。
 
-**现在可用**（直接从本仓库跑，不依赖 npm 发布）：
+### 方式一：直接从 GitHub 跑（现在可用）
 
 ```bash
 npx github:GavinMo1/skills-repo add plan-review-loop
 ```
 
-**发布到 npm 之后**（包尚未发布，先别用）：
+若报 `EALLOWGIT`（npm 11+ 默认 `allow-git=none`，拒绝从 git 取包），加一个开关：
+
+```bash
+npx --yes --allow-git=all github:GavinMo1/skills-repo add plan-review-loop
+```
+
+### 方式二：克隆后本地跑（任何 npm 配置下都可用）
+
+```bash
+git clone https://github.com/GavinMo1/skills-repo
+node skills-repo/bin/cli.mjs add plan-review-loop
+```
+
+### 方式三：npm（发布后）
 
 ```bash
 npx @GavinMo1/skills add plan-review-loop
 ```
 
-装完即写到 `~/.agents/skills/plan-review-loop/`，agent 下次启动就能读到。
+> 这个包**尚未发布到 npm**，现在还不能用这条。
 
 ### 常用命令
 
+下文用 `npx @GavinMo1/skills` 代表下面的安装命令；发布前请等量替换成
+`npx --yes --allow-git=all github:GavinMo1/skills-repo`。
+
 ```bash
-npx github:GavinMo1/skills-repo list                             # 列出可用 skill
-npx github:GavinMo1/skills-repo add --all                        # 全部安装
-npx github:GavinMo1/skills-repo add plan-review-loop --project   # 装到当前项目 ./.agents/skills
-npx github:GavinMo1/skills-repo add plan-review-loop --force     # 覆盖，旧版本移入 .trash/
-npx github:GavinMo1/skills-repo add plan-review-loop --link      # junction 指向本地克隆，改完立即生效
+npx @GavinMo1/skills list                             # 列出可用 skill
+npx @GavinMo1/skills add --all                        # 全部安装
+npx @GavinMo1/skills add plan-review-loop --project   # 装到当前项目 ./.agents/skills
+npx @GavinMo1/skills add plan-review-loop --force     # 覆盖，旧版本移入 .trash/
+npx @GavinMo1/skills add plan-review-loop --link      # junction 指向本地克隆，改完立即生效
 ```
 
 ### 装到哪里
@@ -36,7 +52,7 @@ npx github:GavinMo1/skills-repo add plan-review-loop --link      # junction 指�
 |---|---|---|
 | 用户级（默认） | `add <name>` | `~/.agents/skills/<name>/` |
 | 当前项目 | `add <name> --project` | `./.agents/skills/<name>/` |
-| 任意目录 | `add <name> --dir <path>` | `<path>/<name>/` |
+| 任意目录 | `add <name> --dir <path>` | `<path>/<name>/`（支持 `~`） |
 
 若你的 agent 从别的目录读 skill（例如 `~/.claude/skills`），用 `--dir` 指过去即可：
 

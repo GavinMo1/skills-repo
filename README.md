@@ -1,6 +1,6 @@
 # skills
 
-Agent skill 集合。每个 skill 是 `skills/` 下的一个目录，目录里必须有 `SKILL.md`（frontmatter 含 `name` 与 `description`），可选 `references/`、`agents/` 等附属文件。
+Agent skill 集合。每个 skill 是 `skills/` 下的一个目录，目录里必须有 `SKILL.md`（frontmatter 含 `name` 与 `description`），可选 `references/`、`scripts/`、`agents/` 等附属文件。
 
 ## 安装
 
@@ -66,7 +66,11 @@ npx github:GavinMo1/skills-repo add plan-review-loop --dir ~/.claude/skills
 
 | skill | 用途 |
 |---|---|
+| ai-explore-inline | 深度探索（内联模式）：主 agent 自己扮演回答者和追问者，在同一上下文内多轮深挖。快、连贯，但追问者易被回答者逻辑带着走 |
+| deep-generate | 从零生成主题深度系列文章：先定读者要解决的问题，再知识梳理、章节设计、分工撰写、独立评审、整合交付 |
 | plan-review-loop | 制定或修订要交给用户执行的方案时，用独立评审、修订、复评闭环，产出可直接开工的方案 |
+
+部分 skill 的正文会路由到兄弟 skill（`ai-explore-inline` → `ai-explore-agents` / `ai-debate` / `deep-analyze`，`deep-generate` → `reader-review`）。这些只是「该走哪个技能」的分诊提示，不属于文件依赖，装不上不影响使用；需要时另行安装即可。`deep-generate` 的 frontmatter 保留着原作者的 `disable-model-invocation: true` 字段，原样收录、未作改动。
 
 ## 添加新 skill
 

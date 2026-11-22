@@ -59,9 +59,22 @@ async function metaOf(dir) {
   const text = await readFile(file, 'utf8');
   const fm = text.match(/^---\r?\n([\s\S]*?)\r?\n---/);
   if (!fm) return { name: path.basename(dir), description: '(缺 frontmatter)' };
+  const lines = fm[1].split(/\r?\n/);
   const pick = (key) => {
-    const m = fm[1].match(new RegExp(`^${key}:\\s*(.+)$`, 'm'));
-    return m ? m[1].trim().replace(/^["']|["']$/g, '') : '';
+    const i = lines.findIndex((l) => new RegExp(`^${key}:`).test(l));
+    if (i < 0) return '';
+    let rest = lines[i].slice(lines[i].indexOf(':') + 1).trim();
+    // YAML 块标量（>- / > / | / |- / |+）：取缩进续行，folding 用空格连接
+    if (/^[>|][+-]?$/.test(rest)) {
+      const folded = rest[0] === '>';
+      const body = [];
+      for (let j = i + 1; j < lines.length; j++) {
+        if (lines[j].trim() === '' || /^\s/.test(lines[j])) body.push(lines[j].trim());
+        else break;
+      }
+      return body.filter(Boolean).join(folded ? ' ' : '\n');
+    }
+    return rest.replace(/^["']|["']$/g, '');
   };
   return { name: pick('name') || path.basename(dir), description: pick('description') };
 }

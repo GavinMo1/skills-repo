@@ -62,6 +62,35 @@ npx github:GavinMo1/skills-repo add plan-review-loop --dir ~/.claude/skills
 - **不会删除任何东西**：目标已存在时默认拒绝安装；加 `--force` 才覆盖，且旧版本先移到目标目录下的 `.trash/<name>-<时间戳>/`。
 - 默认整目录复制。`--link` 用 junction/符号链接指向你的本地克隆，适合边改边用，不适合长期保留。
 
+## 多机同步
+
+本仓库同时充当机器之间的同步通道。推荐每台机器克隆一份，再用 `--link` 把 `~/.agents/skills/<name>` 做成指向克隆的 junction——改哪边都是改同一份文件，同步只剩 `git pull` / `git push`，中间没有复制，也就不存在「哪份是最新的」。
+
+```bash
+git clone https://github.com/GavinMo1/skills-repo
+cd skills-repo
+node bin/cli.mjs add --all --link --dir ~/.agents/skills
+```
+
+之后只做两件事：
+
+| 需求 | 命令 |
+|---|---|
+| 把另一台机器的修改拉过来 | `git pull` |
+| 把本机修改送出去 | `git add -A && git commit -m "..." && git push` |
+
+不需要重新安装——junction 指向的文件已经被 `git pull` 换掉了。
+
+三个注意点：
+
+- `--link` 遇到目标已存在时，会先把旧目录移进 `~/.agents/skills/.trash/<name>-<时间戳>/` 再建 junction。别顺手清 `.trash`，那是唯一回退点。
+- **不要在已 link 的机器上跑 `add --force`。** 它会把 junction 挪走换成普通目录，链接关系断掉，之后本机修改不再进 git。
+- 删掉克隆目录等于让这些 junction 全部断链，agent 会读不到 skill。
+
+也可以不 link，把仓库当纯发行源：在仓库里改 → 推送 → 另一台 `git pull` 后跑 `add --all --force` 重装。代价是**任何一台机器上都不许在 `~/.agents/skills` 里就地改**——那里的改动没有版本记录，下次 `--force` 会把它挪进 `.trash` 覆盖掉，而且不会提醒你。
+
+维护本仓库的约定（发布流程、版本号规则、踩过的坑）见 [AGENTS.md](https://github.com/GavinMo1/skills-repo/blob/main/AGENTS.md)。
+
 ## 现有 skill
 
 | skill | 用途 |

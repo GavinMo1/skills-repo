@@ -70,7 +70,7 @@ npx github:GavinMo1/skills-repo add plan-review-loop --dir ~/.claude/skills
 | deep-generate | 从零生成主题深度系列文章：先定读者要解决的问题，再知识梳理、章节设计、分工撰写、独立评审、整合交付 |
 | plan-review-loop | 制定或修订要交给用户执行的方案时，用独立评审、修订、复评闭环，产出可直接开工的方案 |
 
-部分 skill 的正文会路由到兄弟 skill（`ai-explore-inline` → `ai-explore-agents` / `ai-debate` / `deep-analyze`，`deep-generate` → `reader-review`）。这些只是「该走哪个技能」的分诊提示，不属于文件依赖，装不上不影响使用；需要时另行安装即可。`deep-generate` 的 frontmatter 保留着原作者的 `disable-model-invocation: true` 字段，原样收录、未作改动。
+`deep-generate` 的正文会路由到 `reader-review`。这只是「该走哪个技能」的分诊提示，不属于文件依赖，装不上也不影响使用；需要时另行安装即可。`deep-generate` 的 frontmatter 保留着原作者的 `disable-model-invocation: true` 字段，原样收录、未作改动。
 
 ## 添加新 skill
 

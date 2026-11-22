@@ -69,8 +69,9 @@ npx github:GavinMo1/skills-repo add plan-review-loop --dir ~/.claude/skills
 | ai-explore-inline | 深度探索（内联模式）：主 agent 自己扮演回答者和追问者，在同一上下文内多轮深挖。快、连贯，但追问者易被回答者逻辑带着走 |
 | deep-generate | 从零生成主题深度系列文章：先定读者要解决的问题，再知识梳理、章节设计、分工撰写、独立评审、整合交付 |
 | plan-review-loop | 制定或修订要交给用户执行的方案时，用独立评审、修订、复评闭环，产出可直接开工的方案 |
+| reader-review | 让独立子 Agent 扮演目标读者实际读一遍材料，反馈理解如何逐步形成、顺序与详略哪里卡住；不替代事实核验 |
 
-`deep-generate` 执行到试读步骤时会按环境位置读取配套技能 `reader-review`；找不到时按技能内规定披露缺失并继续，不影响其余交付。这属于运行期依赖，不是文件依赖，单独安装 `deep-generate` 也能用。`deep-generate` 的 frontmatter 保留着原作者的 `disable-model-invocation: true` 字段，原样收录、未作改动。
+`deep-generate` 执行到试读步骤时会按环境位置读取配套技能 `reader-review`（本仓库已收录）。找不到时按技能内规定披露缺失并继续，不影响其余交付。`deep-generate` 的 frontmatter 保留着原作者的 `disable-model-invocation: true` 字段，原样收录、未作改动。
 
 ## 添加新 skill
 

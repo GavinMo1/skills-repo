@@ -106,7 +106,7 @@ node bin/cli.mjs add --all --link --dir ~/.agents/skills
 
 1. 新建 `skills/<name>/`，放入 `SKILL.md`；附属文件一并放进去（安装器整目录复制）。
 2. 在上面那张表里加一行。
-3. 提交并打版本：`npm version minor` → `git push --follow-tags`。
+3. 提交并打版本：`npm version minor` → `git push --follow-tags`。**默认到此为止，不发 npm**——发不发由维护者决定。
 
 一个 skill 的所有文件都必须留在自己的目录里，不要跨 skill 引用文件——安装是逐目录复制的，跨目录引用装上就断。
 
@@ -119,7 +119,19 @@ node bin/cli.mjs add plan-review-loop --dir /tmp/skills-test
 
 ## 发布（维护者）
 
+**仓库的日常节奏是只推 git。** 改 skill、提版本、打 tag、push 照常做；`npm publish` 只在维护者明确说「发到 npm」时才执行，改完就自动发布不是这里的规矩。
+
+因此「仓库里的 version 高于 npm 上的版本」是常态，不是漏发：tag 一直留在远端，补发用的就是那个 tag，不必因为当时没发而重新提一版。npm 上的 README 和内容也只在发布那一次才会跟上。
+
+要发一版时，看版本号是否已经提过：
+
 ```bash
+# 常规情况：版本和 tag 早已随日常 push 出去了，只补最后一步
+npm publish
+```
+
+```bash
+# 攒了几个改动一起发，这次的版本还没提
 npm version patch          # 或 minor
 git push --follow-tags
 npm publish

@@ -1,6 +1,6 @@
 {
   "name": "@gavinmo1/skills",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Agent skills collection",
   "type": "module",
   "bin": {

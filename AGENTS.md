@@ -20,11 +20,17 @@ AGENTS.md             本文件，维护者约定
 2. **`description` 只写「这个 skill 干什么、什么时候用、不适用于什么」，不要写「这类需求请走 X skill」。** 路由是描述匹配阶段的事，把其他 skill 的名字塞进 description 会让路由在两处打架，而且被点名的 skill 一旦删掉就留下悬空引用。
 3. 正文里引用其他 skill 只允许是执行期依赖（真的要到那一步去读它），并且要写清「读不到时怎么办」。
 4. README 的 skill 表加一行。
-5. 提交 → 提版本 → 发布（见下）。
+5. 提交 → 提版本 → push（见下）。**到此为止，不发 npm。**
 
 新增或删除 skill 属于**次版本号**（`0.2.0` → `0.3.0`）；只改 skill 内容属于**补丁号**（`0.2.2` → `0.2.3`）。
 
 ## 发布
+
+**默认只推 git，不发 npm。** 提交、提版本、打 tag、push 是每次改动的常规收尾；`npm publish` **只在维护者明确说「发到 npm」时才执行**——「写得差不多了」「该发的都发了」这类自我判断不构成授权，也不要顺手带上。
+
+没发布的版本照样打 tag 推到远端，之后补发用的就是那个 tag，不必因为当时没发而重新提一版。所以「仓库里 version 比 npm 上高」是正常状态，不是漏发。
+
+日常（每次改动都做）：
 
 ```powershell
 # 1. 改 package.json 的 version，或 npm version patch/minor
@@ -36,7 +42,11 @@ git add -A
 git -c core.autocrlf=false commit -m "feat: ..." -m "正文说明"
 git tag -a v0.3.0 -m "v0.3.0"
 git push origin main --follow-tags
+```
 
+维护者要求发布时，在已推的 tag 上补这一步：
+
+```powershell
 # 4. 发布（必须显式指定 registry 与 token）
 npm publish --registry=https://registry.npmjs.org "--//registry.npmjs.org/:_authToken=$tok"
 ```
@@ -70,7 +80,7 @@ Add-Type -AssemblyName Microsoft.VisualBasic
 - **不要提交** `.trash/`、`node_modules/`、测试生成的临时目录。
 - **`.gitattributes` 是 `* text=auto eol=lf`。** Windows 上的 CRLF 文件提交后按 LF 存，git 会提示 `CRLF will be replaced by LF`——这是预期行为，不是错误。提交时用 `git -c core.autocrlf=false commit` 避免把纯换行变化混进功能提交。
 - **不要 `push --force`**，不要改写已推送的历史。
-- **README 只在发布时同步到 npm 页面。** 改了 README 想让 npm 页面跟着变，必须再提一个补丁版本并发布。
+- **README 只在发布时同步到 npm 页面。** npm 页面的 README 落后于仓库是默认状态，不算没做完；要让它跟上，得等维护者要求发布的那一次。
 - 每个 skill 的文件必须留在自己目录里，不要跨 skill 引用文件——安装是逐目录复制的，跨目录引用装上就断。
 
 ## 相关

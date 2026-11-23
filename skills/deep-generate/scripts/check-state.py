@@ -7,6 +7,16 @@ import re
 from pathlib import Path
 
 
+EMPTY_FILES = "没有登记文件"
+
+
+def v2_ok(state):
+    """账本必须标记为版本2；判据与远端 skills-repo 的同名实现逐字一致。"""
+    return (isinstance(state, dict)
+            and type(state.get("schema_version")) is int
+            and state["schema_version"] == 2)
+
+
 class Check:
     def __init__(self, root, final=False):
         self.root = root.resolve()
@@ -64,7 +74,7 @@ class Check:
 
     def run(self, state):
         state = self.obj(state, "state")
-        self.require(type(state.get("schema_version")) is int and state["schema_version"] == 2, "schema_version", "需要版本2；旧版须依据历史迁移")
+        self.require(v2_ok(state), "schema_version", "需要版本2；旧版须依据历史迁移")
         for key in ("run_id", "next_action"):
             self.text(state.get(key), key)
         limit = state.get("revision_limit")
@@ -73,7 +83,7 @@ class Check:
         self.actors = {k: self.obj(v, "actors." + k) for k, v in self.actors.items()}
         files = self.obj(state.get("files"), "files")
         files = {k: self.obj(v, "files." + k) for k, v in files.items()}
-        self.require(bool(files), "files", "没有登记文件")
+        self.require(bool(files), "files", EMPTY_FILES)
         people, paths = {}, set()
         for fid, item in files.items():
             at = "files." + fid
@@ -212,6 +222,9 @@ class Check:
         if status in ("已完成", "部分覆盖"):
             self.require(bool(links), "reading", "缺少支持试读结论的报告")
         if self.final:
+            if not any(item.get("kind") in ("chapter", "guide") for item in files.values()):
+                self.add("failed", "files",
+                         "没有可交付内容：正文章节须以 chapter/guide 类型登记；kind 登记后不可变更")
             for fid, item in files.items():
                 if item.get("kind") != "shared" and fid not in passes:
                     self.add("unchecked", "files." + fid, "缺少当前内容通过记录")
@@ -244,7 +257,8 @@ def main():
         check.run(state)
     except (OSError, ValueError, TypeError, RecursionError) as exc:
         check.add("failed", "state", str(exc))
-    check.result["limits"] = "只检查机械一致性；不证明来源、范围完整性、上下文隔离、实际体验或链接锚点正确。"
+    check.result["limits"] = ("只检查机械一致性；不证明来源、范围完整性、上下文隔离、实际体验或链接锚点正确。"
+                              "版本号匹配不证明已完成迁移；root 取值影响路径解析。")
     print(json.dumps(check.result, ensure_ascii=False, indent=2))
     return 1 if check.result["failed"] else 2 if check.result["unchecked"] else 0
 

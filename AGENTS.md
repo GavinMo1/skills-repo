@@ -51,13 +51,39 @@ git push origin main --follow-tags
 npm publish --registry=https://registry.npmjs.org "--//registry.npmjs.org/:_authToken=$tok"
 ```
 
-**三个必须记住的坑：**
+**四个必须记住的坑：**
 
 1. **本机 npm 默认 registry 是 `registry.npmmirror.com`**，发布和查版本都必须显式带 `--registry=https://registry.npmjs.org`，否则只会动镜像。
 2. **`NODE_AUTH_TOKEN` 环境变量 npm 不会自动采用。** 它只在 `.npmrc` 里写了 `//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}` 时才生效。直接 `$env:NODE_AUTH_TOKEN=...; npm publish` 会静默回落到旧的登录会话并报 `E403 Two-factor authentication ... required`——这个报错具有误导性，真实原因往往是没传进去。
 3. **包名和 scope 必须全小写。** npm 用户名是 `gavinmo1`，scope 只能是 `@gavinmo1/`。
+4. **账户是 `auth-and-writes` 时，`--otp` 与网页登录的会话 token 都发不出去。** 用 `npm login --auth-type=web` 登录后 `npm whoami` 正常，但 `npm publish` 仍报 `E403 ... Two-factor authentication or granular access token with bypass 2fa enabled is required`；补 `--otp=<6位>` 也是同一句 403（不是 `EOTP`）。可用的只有建一个 **Granular Access Token 并勾选 Bypass 2FA**，再显式传进去。`npm token list` 只能看到 token 前缀，旧值取不回来，只能新建。
 
 发布后 registry 传播需要 1～2 分钟，期间 `npm view` 仍返回旧版本、`npx` 会报 `ETARGET`。等一分钟再试，不要重发。
+
+**发布现在是异步的**：`npm publish` 的 PUT 返回 `202` 并提示 `Your package is being processed`，命令立刻以 `+ @scope/name@x.y.z` 成功退出，但 registry 上要等几十秒才出现。这段时间里重复 publish 会撞 `E409 Conflict - Cannot publish over previously staged version`——那不是失败，是它还在处理。改用固定版本探测确认：
+
+```powershell
+(Invoke-RestMethod 'https://registry.npmjs.org/@gavinmo1%2fskills').'dist-tags'.latest
+```
+
+## 只发一部分 skill
+
+`package.json` 的 `files` 是白名单，**逐条列出要进包的 skill 目录**，不要写整个 `skills`——写成 `skills` 就等于把仓库里所有 skill（包括还在打磨的）一起发出去。加了新 skill 想发，才往里加一行；不想发就别加。
+
+```json
+"files": [
+  "bin",
+  "skills/ai-explore-inline",
+  "skills/deep-generate",
+  "skills/plan-review-loop",
+  "skills/plan-review-loop-en",
+  "skills/reader-review",
+  "README.md",
+  "LICENSE"
+]
+```
+
+发了之后 `npx ... add <name>` 只能装包里有的那些；仓库里没进包的，要用 GitHub 方式装。README 的 skill 表因此要写明哪几个在 npm 上。
 
 ## 发布后验证
 

@@ -104,6 +104,8 @@ node bin/cli.mjs add --all --link --dir ~/.agents/skills
 | reader-review | 让独立子 Agent 扮演目标读者实际读一遍材料，反馈理解如何逐步形成、顺序与详略哪里卡住；不替代事实核验 |
 | topic-resonance | 从零散素材里提炼候选主题清单：手上有一堆有感觉但说不清的材料时不直接给结论，只给可被用户指认「就是这个」的选项 |
 
+npm 包里目前只收下面这几个已经定型的：`ai-explore-inline`、`deep-generate`、`plan-review-loop`、`plan-review-loop-en`、`reader-review`。其余几个仓库里有、npm 上还没有，想用得走上面的 GitHub 方式装。
+
 `deep-generate` 执行到试读步骤时会按环境位置读取配套技能 `reader-review`（本仓库已收录）。找不到时按技能内规定披露缺失并继续，不影响其余交付。`deep-generate` 的 frontmatter 保留着原作者的 `disable-model-invocation: true` 字段，原样收录、未作改动。
 
 ## 添加新 skill

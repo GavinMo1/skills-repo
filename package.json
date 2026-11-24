@@ -1,6 +1,6 @@
 {
   "name": "@gavinmo1/skills",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Agent skills collection",
   "type": "module",
   "bin": {
@@ -8,7 +8,11 @@
   },
   "files": [
     "bin",
-    "skills",
+    "skills/ai-explore-inline",
+    "skills/deep-generate",
+    "skills/plan-review-loop",
+    "skills/plan-review-loop-en",
+    "skills/reader-review",
     "README.md",
     "LICENSE"
   ],

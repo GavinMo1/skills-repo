@@ -99,7 +99,7 @@ node bin/cli.mjs add --all --link --dir ~/.agents/skills
 | ai-explore-inline-plus | 深度探索（内联模式·增强版）：收敛由「未解问题清单」驱动而非自评分，追问者多一维可信度审查，结论必须回指轮次，边跑边落盘 |
 | deep-generate | 从零生成主题深度系列文章：先定读者要解决的问题，再知识梳理、章节设计、分工撰写、独立评审、整合交付 |
 | neat-freak | 项目知识收尾：核对代码、已核实的运行状态、文档、规则与获准维护的记忆，把结论收敛到接手者能找到的位置；仅在用户显式调用时使用 |
-| plan-review-loop | 制定或修订要交给用户执行的方案时，用独立评审、修订、复评闭环，产出可直接开工的方案 |
+| plan-review-loop | 制定或修订要交给用户执行的方案时，用独立评审、修订、复评闭环，产出可直接开工的方案；仅在用户显式调用时使用 |
 | plan-review-loop-en | 同上，英文版：按受控技术英语（STE 风格）重写，句子短、强度词只有六个、条件前置，便于与中文版对照效果 |
 | reader-review | 让独立子 Agent 扮演目标读者实际读一遍材料，反馈理解如何逐步形成、顺序与详略哪里卡住；不替代事实核验 |
 | topic-resonance | 从零散素材里提炼候选主题清单：手上有一堆有感觉但说不清的材料时不直接给结论，只给可被用户指认「就是这个」的选项 |
@@ -107,6 +107,8 @@ node bin/cli.mjs add --all --link --dir ~/.agents/skills
 npm 包里目前只收下面这几个已经定型的：`ai-explore-inline`、`deep-generate`、`plan-review-loop`、`plan-review-loop-en`、`reader-review`。其余几个仓库里有、npm 上还没有，想用得走上面的 GitHub 方式装。
 
 `deep-generate` 执行到试读步骤时会按环境位置读取配套技能 `reader-review`（本仓库已收录）。找不到时按技能内规定披露缺失并继续，不影响其余交付。`deep-generate` 的 frontmatter 保留着原作者的 `disable-model-invocation: true` 字段，原样收录、未作改动。
+
+`plan-review-loop` 的 frontmatter 也带 `disable-model-invocation: true`：中英两版做的是同一件事，都参与自动路由会互相抢，现在自动路由只走英文版，中文版由用户点名调用。要改回自动路由，删掉那一行即可。
 
 ## 添加新 skill
 

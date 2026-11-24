@@ -1,6 +1,7 @@
 ---
 name: plan-review-loop
 description: "为要交给 Agent 执行的工作写方案时，用独立评审、修订、复评闭环。产出两份：执行 Agent 拿到就能照着做、不必回问背景的开工方案，以及只给审计用的评审记录。用于写方案、先设计再动手、让 Agent 评审方案。"
+disable-model-invocation: true
 ---
 
 # 方案写评闭环

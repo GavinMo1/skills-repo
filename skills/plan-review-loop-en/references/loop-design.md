@@ -75,6 +75,8 @@ The User said that the main file was too large. This pass **deleted no test and 
 
 **What the pass did not do**: it did not expand the three-character connectors ("it is false, so use Standard" stays short). It also did not delete a condition or an exception to reach a sentence length. Sentence length is not the test. The test is whether the completion condition of each rule is still there.
 
+**The fifth pass: two blocks came back.** The User asked why a block that every round reads should sit in its own file. Two tests replaced "how often is it read". First, does every branch read it? Second, is it a test or a format? Only two blocks came back: the five file-location rules, and the four values of an executable action. Each round needs both, both are small, and both are tests. The rest stays in `references/`, because a round reads it by section, or one route agent reads it. The main file went from 32.7 to 33.6 KB, and the protocol from 21.4 to 20.4 KB.
+
 **If the file must become smaller again**, the remaining text is the rules that every round judges: the three levels, the eight plan items, the two gates, and the routing table. Only deleting a rule can make it smaller, and that is a content decision. Walk the maintenance list below, item 1 and item 5. Do not let a word count decide.
 
 ## Deleted Rules: Do Not Add Them Back

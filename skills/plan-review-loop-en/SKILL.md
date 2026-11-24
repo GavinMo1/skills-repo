@@ -143,7 +143,15 @@ Check the request, the current implementation, and the existing mechanisms. Sepa
 
 The plan holds no evidence anchors, no property judgments, no review history, no dispute record, no problem count, no Choice List, and no version history. The first line of the plan gives the version number and one sentence: "This plan is self-contained. The implementation does not read the review record."
 
-**File location**: if the project has a disk rule that gives a path and a line number, obey that rule. The rule may sit in `AGENTS.md`, `README.md`, `docs/CONVENTIONS.md`, or an equivalent file. If the project has no such rule, obey [Review Protocol](references/review-protocol.md) "Version and Snapshot". That section gives the directory, the two file names, the `archive/` directory, and the version position. Do not make a second rule in the plan.
+**File location**: if the project has a disk rule that gives a path and a line number, obey that rule. The rule may sit in `AGENTS.md`, `README.md`, `docs/CONVENTIONS.md`, or an equivalent file. If the project has no such rule, use these five rules.
+
+- Put the files in `plans/<short-topic>/`. Use lower case and hyphens in the directory name. Fix the file prefix the first time you set it in that directory. The default prefix is the short topic name.
+- **Two files for each version**: `<prefix>-v<version>.md` for the Work Plan (reader: the Execution Agent), and `<prefix>-v<version>-record.md` for the Review Record (reader: the Author and the User). Write one record for each version, and do not change it after you write it.
+- The `archive/` directory holds the text of each earlier version. **Move the previous version into it as soon as you write a new version.**
+- Write the version number in the text. Give the record the name of the version that produced it. Write the reviewed version in the first line of the record title. **A file name used as a version number goes one version out of step.**
+- If the User forbids a file, or wants a chat transcript only, this section does not apply. Use "Three simplifications" in section 5.
+
+Do not make a second rule in the plan.
 
 ### Record items
 
@@ -338,7 +346,7 @@ No open item passes either question below.
 **Conditions that open no new round**
 
 - **Ten rounds are used.** If the User gave a smaller number, use that number. **Exception**: at the limit, open one more round in three conditions. Gate 1 is true. Gate 2 has exactly one failing item. That item needs three or fewer edit points. List the edit points and write them in the record before the round. The round counts in the budget. **Use this exception once in the whole loop.** Mark it after you use it.
-- **The round has no executable action.** Judge the effect, not the action. The four values that count as an action are in [Review Protocol](references/review-protocol.md) "Delivery Check". **A change of wording is not an action.** "Waiting for a User decision" is no action. The blocking grade of that item only decides whether the delivery form says "blocked" or "no convergence".
+- **The round has no executable action.** Judge the effect, not the action. Four values count as an action. (1) A value changes from "cannot judge" to a certain value: one symbol read, one command run, or one document section read counts. (2) A position, an anchor, or an acceptance check that failed before now passes: "I added it" does not count, and you must show the earlier failure and the current pass. (3) The cause of a gap is deleted. (4) The handling requirement of a must-change item is met, and you can show the text before and after. **A change of wording is not an action.** "Waiting for a User decision" is no action. The blocking grade of that item only decides whether the delivery form says "blocked" or "no convergence".
 
 **Complete the small items before you stop.** If one command, one search, one symbol read, one document section, or one check conclusion can settle an item, do it. It opens no round. Then decide.
 

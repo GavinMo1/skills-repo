@@ -12,13 +12,9 @@ A change to behavior, a constraint, a precondition, a step, or an acceptance ite
 
 **Substantive Change**: a change to behavior, a constraint, a precondition, a step, or an acceptance item. Save a new version and re-review it. Check that the text equals the last reviewed version before delivery. A **Contract-Precision Revision** does not change the technical meaning: it removes an ambiguity, repairs a reference, makes a constant agree, or tightens an assertion. It still opens a new version and goes through the normal re-review. It has no fast path. Test: treat a change as a Substantive Change in two cases: it turns an existing red assertion to green; or it changes a default value, a threshold, or a refusal condition. Both kinds open a new version and recompute the hash.
 
-**Round archive**: obey the project rule. A rule that gives a path and a line number (`AGENTS.md`, `README.md`, `docs/CONVENTIONS.md`, or an equivalent file) is the project rule. If no rule gives them, obey this default:
+**Round archive**: obey the project rule. A rule that gives a path and a line number (`AGENTS.md`, `README.md`, `docs/CONVENTIONS.md`, or an equivalent file) is the project rule. If no rule gives them, use the five rules in section 1 of the [main file](../SKILL.md), "File location": the directory, the two file names, the `archive/` directory, and the version position.
 
-- Put the files in `plans/<short-topic>/`. Use lower case and hyphens in the directory name. Fix the file prefix the first time you set it in that directory. The default prefix is the short topic name.
-- **Two files for each version**: `<prefix>-v<version>.md` for the Work Plan (reader: the Execution Agent) and `<prefix>-v<version>-record.md` for the Review Record (reader: the Author and the User). Write one record for each version, and do not change it after you write it.
-- The `archive/` directory holds the text of each earlier version. **Move the previous version into it as soon as you write a new version.**
-- Write the version number in the text. Give the record the name of the version that produced it. Write the reviewed version in the first line of the record title. **A file name used as a version number goes one version out of step.**
-- If the User forbids a file, or wants a chat transcript only, this section does not apply. Use "Three simplifications" in section 5 of the [main file](../SKILL.md).
+This section gives the version convention only: one version, one text, and the text does not change after the freeze.
 
 The required fields of the two products are in section 1 of the [main file](../SKILL.md). This protocol does not repeat them.
 
@@ -163,7 +159,7 @@ Check that the final text and the newest conclusion of each route belong to the 
 
 If a substantive change has no re-review, open the next round. If the budget is used, judge the delivery form by section 4 of the [main file](../SKILL.md). There are three delivery forms only: **pass, partial delivery, and exit without convergence**. The tests are in section 4 of the main file, and this protocol does not repeat them.
 
-**The four values that count as an action** for the test "does this round have an executable action?". Judge the effect, not the action, and not the wording. (1) A value changes from "cannot judge" to a certain value; one symbol read, one command run, or one document section read counts. (2) A position, an anchor, or an acceptance check that failed before now passes; "I added it" does not count, and you must show the earlier failure and the current pass. (3) The cause of a gap is deleted. (4) The handling requirement of a must-change item is met, and you can show the text before and after. **A change of wording is not an action.**
+**The four values that count as an action** are in section 4 of the [main file](../SKILL.md), "Conditions that open no new round". This section judges the delivery form only.
 
 ## Dispatch to Implementation
 

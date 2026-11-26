@@ -1,6 +1,6 @@
 # AGENTS.md
 
-本仓库是 agent skill 的**唯一真源**。`C:\Users\27017\.agents\skills` 下的 4 个 skill 目录是本仓库 `skills/` 的 junction，改这里就等于改那边。
+本仓库是 agent skill 的**唯一真源**。`C:\Users\27017\.agents\skills` 下的 9 个 skill 目录是本仓库 `skills/` 的 junction，改这里就等于改那边。（本仓库 `skills/` 里目前有 10 个目录，`plan-review-loop-en` 没有建 junction。）
 
 ## 结构
 

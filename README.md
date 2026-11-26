@@ -104,6 +104,7 @@ node bin/cli.mjs add --all --link --dir ~/.agents/skills
 | reader-review | 让独立子 Agent 扮演目标读者实际读一遍材料，反馈理解如何逐步形成、顺序与详略哪里卡住；不替代事实核验 |
 | skill-audit | 只读审计一套 skill（含其 references），按「skill 优化心得」判据列出可优化点清单；不改文件、不执行被审的 skill |
 | topic-resonance | 从零散素材里提炼候选主题清单：手上有一堆有感觉但说不清的材料时不直接给结论，只给可被用户指认「就是这个」的选项 |
+| ui-detail | 写、改、评审或验收前端界面时的细节手册：布局间距、对齐、颜色对比度、深色主题、表单与校验、输入框、按钮选择器、表格列表、浮层弹窗抽屉、上传附件、保存草稿、日期时间、拖拽排序、状态动效、无障碍焦点、交付验收；一次任务按阶段只取 2–3 篇，产出一份四段式验收记录 |
 
 npm 包里目前只收下面这几个已经定型的：`ai-explore-inline`、`deep-generate`、`plan-review-loop`、`plan-review-loop-en`、`reader-review`。其余几个仓库里有、npm 上还没有，想用得走上面的 GitHub 方式装。
 

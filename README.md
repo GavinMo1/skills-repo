@@ -102,6 +102,7 @@ node bin/cli.mjs add --all --link --dir ~/.agents/skills
 | plan-review-loop | 制定或修订要交给用户执行的方案时，用独立评审、修订、复评闭环，产出可直接开工的方案；仅在用户显式调用时使用 |
 | plan-review-loop-en | 同上，英文版：按受控技术英语（STE 风格）重写，句子短、强度词只有六个、条件前置，便于与中文版对照效果 |
 | reader-review | 让独立子 Agent 扮演目标读者实际读一遍材料，反馈理解如何逐步形成、顺序与详略哪里卡住；不替代事实核验 |
+| skill-audit | 只读审计一套 skill（含其 references），按「skill 优化心得」判据列出可优化点清单；不改文件、不执行被审的 skill |
 | topic-resonance | 从零散素材里提炼候选主题清单：手上有一堆有感觉但说不清的材料时不直接给结论，只给可被用户指认「就是这个」的选项 |
 
 npm 包里目前只收下面这几个已经定型的：`ai-explore-inline`、`deep-generate`、`plan-review-loop`、`plan-review-loop-en`、`reader-review`。其余几个仓库里有、npm 上还没有，想用得走上面的 GitHub 方式装。

@@ -6,7 +6,7 @@ A rule restated here in one line keeps its strength word and names the file that
 
 ## How this file is organised
 
-Sixty-nine recorded failures, grouped by **cause** into fourteen classes. Each class gives four things:
+Seventy recorded failures, grouped by **cause** into fourteen classes. Each class gives four things:
 
 - **Cause**: the one mechanism that produced every failure in the class.
 - **Test**: the question that decides whether a new failure belongs here. If the answer is no, it is another class.
@@ -197,6 +197,7 @@ One line for each: the phenomenon and the rule it produced, in [Design Cases](lo
 
 - A proved precondition gives an anchor `file :: symbol` and one falsifiable condition: "if you cannot find X in this symbol, this item is false". For the other statements, write the evidence class only. — SKILL.md section 1.
 - A **landing anchor** has two parts: `file :: symbol`, and one sentence that names the symbol where the decision happens, with the call-chain line that shows the relation. **A name that exists is not a landing point.** — SKILL.md section 1, plan item 4; Terms.
+- Every name in the plan carries a mark at its first appearance: `(new)`, or `(existing: <file> :: <symbol>)`. **A name with no owner reads exactly like a real one.** — SKILL.md section 1, plan items.
 - A source anchor proves "the code says this". It does not prove "the run goes this way". A runtime precondition runs in an isolated directory, with four evidence items: the command, the exit code, the key output passage, and the written fields or the state difference. Write "not met" as not met; do not write "partly met". — protocol "Isolated Run of an Executable Precondition".
 - If one command, one search, or one symbol read gives the answer, run it now. Do not leave it as a to-do item. — SKILL.md section 1.
 - The Evidence position of a resolved item points to a named position in the plan text. If it does not, count the item as open. — SKILL.md section 3.
@@ -208,7 +209,7 @@ One line for each: the phenomenon and the rule it produced, in [Design Cases](lo
 - Is the completion test checkable? "Each problem has a resolved or unresolved value, and each resolved problem has a position" is checkable. — Maintenance 4.
 - Do all the operands of a new test sit inside the text under review? Read only the line that the plan itself contains. If the note holds no words of the User, judge by one point only: does the Core Task give an observable failure symptom? — Maintenance 8; SKILL.md section 4, gate 2.
 
-**Cases** (8): F06 · F07 · F09 · F16 · F48 · F60 † · F61 † · F68 ⋄
+**Cases** (9): F06 · F07 · F09 · F16 · F48 · F60 † · F61 † · F68 ⋄ · F71
 
 One line for each: the phenomenon and the rule it produced, in [Design Cases](loop-design-cases.md), class C09.
 
@@ -366,6 +367,7 @@ Each risk stays open. The parenthetical is the class whose rules it strains.
 - **The boundary between partial delivery and an exit without convergence** (C10) can split a plan that is "a little wrong everywhere" into a partial delivery. When that happens, tighten the rule: each of the three end questions for the ready part has a direct answer. If one has none, exit the whole plan without convergence.
 - **Tier B "change one component" overlaps "local repair" of the Adversarial route** (C04). The overlap is not a problem. When the two routes agree, merge the two problems.
 - **One limit of ten rounds lets a Light level use all ten** (C13). The limit is not a permission. A plan that meets the pass test should stop at once. Watch the failure "we still have rounds, so review once more". Do not change the limit when you see it. Check first whether that round has an executable action.
+- **Prose about code has an accuracy ceiling** (C09, C12). A plan that restates the code keeps one class of finding alive however many rounds it runs: the plan names the wrong location, the wrong branch, or a name that does not exist. Observed 2026-11-27: rounds five to seven of a seven-round run produced mostly this class, and each finding was real, and each one was cheaper to catch in code than in prose. **Signal**: in one round, more than half of the high findings are of this class (location, branch, name, byte arithmetic). **What to do**: report it to the User as "this should move to code", and let the User decide. The Author passes it upward, once per round at most. **This is not an exit gate**: a count decides no close (C04, F10, F65). **Why not a rule**: the cheap part of this class is scriptable — a landing anchor, a name mark, the source column — and what is left is the residue that no wording removes.
 
 ## Field Sample: 2026-11-27
 
@@ -391,7 +393,7 @@ The five proposals of the live task. Two arrived as a correction to a rule: the 
 
 ## Unmerged (one sample)
 
-**Empty.** All sixty-nine recorded failures found a class. Two entries carry no failure at all, and they sit here rather than in a class: the full format of the start instructions (a rule added in the second pass, with no case recorded — SKILL.md section 1, plan item 3), and the overlap between Tier B and the Adversarial local repair (a known overlap, not a problem — see the residual risks).
+**Empty.** All seventy recorded failures found a class. Two entries carry no failure at all, and they sit here rather than in a class: the full format of the start instructions (a rule added in the second pass, with no case recorded — SKILL.md section 1, plan item 3), and the overlap between Tier B and the Adversarial local repair (a known overlap, not a problem — see the residual risks).
 
 The two nearest misses are C10 and C12. Each holds exactly one other sample, and in each pair the second sample shares the **cause**, not the symptom. If a later reading finds that either second sample does not share the cause, that class collapses to one sample and it moves into this section. A single sample is not abstracted here: to abstract one accident is to tell a concrete story as a vague sentence, and the vague sentence loses the check.
 
@@ -409,7 +411,7 @@ A future failure that fits no class goes here with its one line, not into the ne
 | C06 | A boundary that lives only in a sentence decays | 4 | The dispatch message decides the independence |
 | C07 | A repair or a text operation silently removes a test | 5 | Is the completion test of each rule still there? |
 | C08 | The rule text does not fix the reader's action | 4 | Five strength words, one form each |
-| C09 | The basis is not observable inside the material | 8 | Run it now, or write one falsifiable condition |
+| C09 | The basis is not observable inside the material | 9 | Run it now, or write one falsifiable condition |
 | C10 | A two-valued decision on a partly good result | 2 | Partial delivery, or exit the whole plan |
 | C11 | Content with no named reader has no owner | 4 | Which reader owns this line? |
 | C12 | A new finding has no cheap destination | 2 | The routing table |

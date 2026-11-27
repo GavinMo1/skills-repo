@@ -88,6 +88,7 @@ A case is marked **†** when its rule is new and had no case at the time of wri
 - **F60 †** A name that exists was accepted as the landing point while the decision sat one call away: "change `onInbound`" passes a search for `onInbound`, and the decision sits in `route` → the landing anchor's second part, the sentence that names the deciding symbol.
 - **F61 †** A fixture wrote the state that the entry point writes: the assertion passed and the entry point itself never ran → the second column of the acceptance table, with a producer named for a production path.
 - **F68 ⋄** The rule required a producer for a claimed production path, and it did not say which class a cell falls into when no producer can be written, so the claim stayed assertable and out of reach of a search → a cell that names neither counts as hand-made. A rule that names the good case and not the empty case leaves the empty case to the reader.
+- **F71** A log event name invented in v9 was cited as existing behaviour for four versions, and one search showed zero hits: the name read exactly like a real one, and no reviewer had a basis inside the text to tell → every name in the plan carries a mark at its first appearance, `(new)` or `(existing: <file> :: <symbol>)`.
 
 ## C10 · A two-valued decision is applied to a result that is partly good
 
@@ -119,7 +120,7 @@ A case is marked **†** when its rule is new and had no case at the time of wri
 
 ## Anchor Ledger
 
-Seven rules have a real anchor. Fifteen carry an inference only, and each one is a **deletion candidate, not a reason to keep it**. Three of the fifteen are new and have no case yet — F60, F61, and the channel rule of checklist C5: give each one chance. Read the class before you delete one.
+Eight rules have a real anchor. Fifteen carry an inference only, and each one is a **deletion candidate, not a reason to keep it**. Three of the fifteen are new and have no case yet — F60, F61, and the channel rule of checklist C5: give each one chance. Read the class before you delete one.
 
 | Rule | Class | Anchor |
 |---|---|---|
@@ -130,6 +131,7 @@ Seven rules have a real anchor. Fifteen carry an inference only, and each one is
 | Two products by reader | C11 | The User said on 2026-11-24 that the earlier goal named the User as the reader |
 | Reuse as a safety duty: the position of a closed item | C07 | 2026-11-27, seven rounds, v12: v8 dropped v7's `+1`, v11 landed on the wrong position, v12 moved an order, and the Closure Table said resolved each time |
 | The closed-position list of a round with no reusable route | C03 | 2026-11-27: the three original routes sat outside the plan session's sub-agent tree, rounds two to seven had no reusable route, and the regression check of closed items had no owner in any round |
+| Every name in the plan carries a mark at its first appearance | C09 | 2026-11-27: a log event name invented in v9 was cited as existing behaviour for four versions, and one search showed zero hits |
 
 Inference only. One line per rule, so that a rule can be retired on its own:
 

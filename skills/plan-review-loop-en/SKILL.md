@@ -143,6 +143,8 @@ Check the request, the current implementation, and the existing mechanisms. Sepa
 7. **When to stop and ask**: a false precondition, a scope beyond the authorization, and an open dispute.
 8. **Blind Spot List**: write the name of the blind spot and the condition that must bring you back.
 
+Give every name in the plan a mark at its first appearance: `(new)`, or `(existing: <file> :: <symbol>)`. A log event name, a function name, a field name, and a state value all take the mark. **A name with no owner reads exactly like a real one.** The Execution Agent then searches for a thing that does not exist, or adds a log that the rest of the plan does not know about. One search of the marked name, in the frozen text or in the code, settles which case it is. **A name that exists but does not decide reads exactly like one that decides.** **A mark is not a landing anchor**: the mark proves that the name exists, and the landing anchor of item 4 proves that the name decides. A step that marks `onInbound` as existing still fails item 4.
+
 The plan holds no decision-evidence anchors, no property judgments, no review history, no dispute record, no problem count, no Choice List, and no version history. A landing anchor is not a decision-evidence anchor: the plan holds the landing anchor, and the record holds the evidence behind that decision. The first line of the plan gives the version number and one sentence: "This plan is self-contained. The implementation does not read the review record."
 
 **File location**: if the project has a disk rule that gives a path and a line number, obey that rule. The rule may sit in `AGENTS.md`, `README.md`, `docs/CONVENTIONS.md`, or an equivalent file. If the project has no such rule, use these five rules.

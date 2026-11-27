@@ -84,7 +84,7 @@ Budget: ten rounds maximum for all levels. If the User gives a smaller number, u
 | [Adversarial Route](references/adversarial-review.md) | Before you dispatch the Adversarial route. The Author and the route agent both read it. | Read all of it. | A risk list with no counterexample. |
 | [Alternative Route](references/alternative-review.md) | You start any tier of an alternative solution. You count the routes for a round. | Read all of it. | Candidates you cannot compare. A wrong round count. |
 | [Review Checklists](references/review-checklists.md) | You write a guard, a cleanup table, an acceptance assertion, or a Revision Table. The Adversarial route reads section A each round. | Read the section you hit, to the end. | An assertion that checks the exit code only. A table with the wrong row count. |
-| [Design Notes](references/loop-design.md) | You change a rule of this skill, or you delete a rule. | Read all of it. | You delete a defense that an earlier failure built. |
+| [Design Notes](references/loop-design.md) and [Design Cases](references/loop-design-cases.md) | You change a rule of this skill, or you delete a rule. You look up the case behind a rule. | Read all of the design notes. Read the cases file by class, for the ID you look up. | You delete a defense that an earlier failure built. |
 
 A daily review does not read the full checklists or the design notes. When you reach a section, read that section to the end. Do not use one sentence from it.
 
@@ -279,7 +279,7 @@ Do not use a vote count. Do not use the higher severity.
 | Case | Action |
 |---|---|
 | A dispute about a fact or a severity | Give the raw evidence. Ask the reporter to re-check. If the evidence is short or the dispute is substantive, keep the item open. Do not reduce the severity yourself. Do not delete the problem. |
-| A preference that meets the existing constraints | The Author selects it inside the authorization and gives the reason. A better alternative does not make the current plan problemive. |
+| A preference that meets the existing constraints | The Author selects it inside the authorization and gives the reason. A better alternative does not make the current plan a problem. |
 | Two routes give opposite conclusions | Each route gives one testable minimum check: one command, one input, or one symbol to read. The Author runs it once and returns the raw result to both routes. If they still disagree, keep the item open and list it in the delivery. |
 | A business goal, more authorization, or a reversal of a User decision | List the options and the effects. Give them to the User. Continue the work that does not depend on the decision. |
 

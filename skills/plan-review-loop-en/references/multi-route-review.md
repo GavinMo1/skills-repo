@@ -47,10 +47,24 @@ Give the version, the material, and the input and output format as in [Review Pr
 | Re-check "was my problem really fixed?" | Reuse | Only that agent holds the evidence chain and the old version. A new agent repeats the check. |
 | Re-check "does this version add a new problem?" | At least one route with a new agent this round | A reused reviewer has a blind area for a design it approved: it remembers "I passed this design" and stops asking "what else does this design need?". **This row does not apply to a one-route Light level.** |
 | Cross-version consistency (is the predicate line unchanged, did a truth table flip?) | Reuse | A reviewer with no old version cannot do this. **This row does not apply to a one-route Light level.** |
+| Re-check "does a closed item still hold its sentence?" | Reuse. When no route is reusable, see "When no route can be reused" below. | A scan route does not get the old positions, so this damage is invisible to it. |
 | A route with no high or medium problem for two rounds | A new agent next round | The reuse value is used up. A new agent also tests one point: was there really no problem, or did the reviewer get used to the plan? |
 | A large version span (the technical approach changed) | All routes with new agents | The old snapshot gives no reference. |
 
-The minimum setup of each round is in section 2 of the main file: one route with a new agent does the full scan for new problems. Each reused route checks the positions that the Closure Table cites. A new agent must get the full plan text. It does not need the old problems. Write in the record which routes are reused and which are new, and which material each new agent saw.
+**Reuse is a safety duty, and the economy is a side effect.** A scan route does not get the old problems, so a regression in an item that is already closed is invisible to it. The reused route is the only reviewer that reads the position of a closed item. That damage is the usual one: a repair moves or drops a line that an earlier repair put there, and the Closure Table still says resolved. The saving in cost is the side effect.
+
+The minimum setup of each round is in section 2 of the main file: one route with a new agent does the full scan for new problems. Each reused route checks every position that the Closure Table cites, including the rows whose status is resolved. This completion test lives in two places, here and section 2 of the [main file](../SKILL.md): change both together. Replacing a test with a pointer once lost two tests. A new agent must get the full plan text. It does not need the old problems. Write in the record which routes are reused and which are new, and which material each new agent saw.
+
+### When no route can be reused
+
+The table above assumes that the agent of an earlier round still answers. It fails when the rounds run in another session, in another sub-agent tree, or after the old agents are gone. Test it before you dispatch round two: name the agent of each route of the earlier round, and try to address it. If you cannot address one of them, that route is new this round and its duty loses its reader.
+
+When no route can be reused, the regression check has no owner. Repair it in this order.
+
+- Send each new agent a **closed-position list**: the positions of the closed items only, written as `file :: symbol` or as a section number of the plan. The list holds no history, no conclusion, no problem ID, and no wording of the original problem. Its one question is: "does this position still hold the sentence that the Closure Table cites?"
+- If you cannot build that list, write "this round has no regression protection" in the record, and add one open item for each closed item whose position you could not check.
+
+**The closed-position list does not break the blindness of a scan route.** The blindness rule protects the conclusion, the history, and the account of the Author. A position that the plan text already holds is none of those three: the reviewer of a scan route finds it in the plan alone, and the list adds no word of what was decided about it.
 
 Each route forms its own conclusion on the common text before the summary. Do not share the problems of the current round early. Write the real check scope, the version, and the limits of each route in the record. Separate a new check from reused evidence.
 

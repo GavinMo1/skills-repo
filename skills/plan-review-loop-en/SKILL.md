@@ -51,6 +51,8 @@ Other terms:
 - **Tier**: the size of an alternative solution: A, B, or C.
 - **Close**: stop the revisions for this round and go to delivery or a test. A close is not a pass.
 - **Disclosed item**: a problem that was judged, that fails both gate questions, and that is still open.
+- **Landing anchor**: the position that a step changes, written as `file :: symbol` plus one sentence that names the symbol where the decision happens. It lives in the plan.
+- **Decision-evidence anchor**: the anchor behind a decision or behind a reported problem: the position, the passage, and the falsifiable condition. It lives in the record and in the report of a route. A landing anchor is not a decision-evidence anchor.
 
 ## Start
 
@@ -109,7 +111,7 @@ A reviewer must not ask again for a precondition that was downgraded correctly. 
 
 ## Rounds and Alternative Solutions
 
-One route uses one agent. Different routes use different agents. The Author's own review is not an independent route. Stop when the pass conditions are true. You do not need to use all ten rounds.
+One route uses one agent. Different routes use different agents. The Author's own review is not an independent route. Stop when the pass conditions are true. Ten rounds is a ceiling, not a target.
 
 An alternative solution has three tiers, selected by the size of the change. Do not use one switch ("do we add a route?") for all three.
 
@@ -135,13 +137,13 @@ Check the request, the current implementation, and the existing mechanisms. Sepa
 1. **What the User wants**: one line quoted from the User. Use it to set the scope.
 2. **Core Task and failure symptom**: the symptom that shows the Core Task is not met.
 3. **Start instructions**: the first step; the order of the later steps; the completion test of each step; and, for each step, whether being stuck means stop and ask, or continue by default.
-4. **Steps**: the location to change or reuse (`file :: symbol`), the action, and the handling of compatibility and failure.
+4. **Steps**: the location to change or reuse, the action, and the handling of compatibility and failure. Give the location as a **landing anchor**, in two parts: `file :: symbol`, and one sentence that names the symbol where the decision happens, with the call-chain line that shows the relation. **A name that exists is not a landing point.** A step that says "change `onInbound`" passes a search for `onInbound`, and the decision can sit in `route`. The sentence that names the deciding symbol is the part a reviewer can check.
 5. **No-go items**: the locked constraints and the confirmed decisions of the User. Cite the number (`Decision 3`).
 6. **Acceptance**: a table of assertions that an agent can run.
 7. **When to stop and ask**: a false precondition, a scope beyond the authorization, and an open dispute.
 8. **Blind Spot List**: write the name of the blind spot and the condition that must bring you back.
 
-The plan holds no evidence anchors, no property judgments, no review history, no dispute record, no problem count, no Choice List, and no version history. The first line of the plan gives the version number and one sentence: "This plan is self-contained. The implementation does not read the review record."
+The plan holds no decision-evidence anchors, no property judgments, no review history, no dispute record, no problem count, no Choice List, and no version history. A landing anchor is not a decision-evidence anchor: the plan holds the landing anchor, and the record holds the evidence behind that decision. The first line of the plan gives the version number and one sentence: "This plan is self-contained. The implementation does not read the review record."
 
 **File location**: if the project has a disk rule that gives a path and a line number, obey that rule. The rule may sit in `AGENTS.md`, `README.md`, `docs/CONVENTIONS.md`, or an equivalent file. If the project has no such rule, use these five rules.
 
@@ -193,18 +195,24 @@ Record the plan status and the implementation status separately. The snapshot is
 
 ### Acceptance assertions
 
-Write each acceptance item as one line that an agent can run. The table must have three columns:
+Write each acceptance item as one line that an agent can run. The table must have four columns:
 
-| Recipe (the operation sequence) | Expected exit code | Expected output message set |
-|---|---|---|
+| Recipe (the operation sequence) | Where the state and the input come from | Expected exit code | Expected output message set |
+|---|---|---|---|
 
-Make one test here: **an assertion that checks the exit code only is not acceptable**. Two different causes often give the same code. Give the message set, or a measurement that separates the two causes. The other four rules are in [Review Checklists](references/review-checklists.md) "Acceptance Assertions": the message count, the existence of the cited test cases, the content markers of a diff assertion, and the coverage self-check. For where an inserted guard lands, and its exemption, see section A4 of the same file. Read that section to the end when you write an assertion.
+The second column gives one of three values: **production path**, **hand-made fixture**, or **real machine**. Two sentences decide the value, and they are not one sentence.
+
+- **A state that the assertion verifies is written by the production path.** A fixture that hand-writes that state moves the test to a path the product does not take. The cell then names the producer as `file :: symbol`, in the form a landing anchor uses.
+- **An illegal or boundary input is hand-made.** The fail-open guard, the collapse of "absent" and "null", and the falsy merge have no legal producer. A fixture is the only way to build their input. The cell then names the fixture or the script that builds it.
+- **A cell that names neither counts as hand-made.** A claim of the production path with no producer is a claim that no search can check.
+
+Make one test here: **an assertion that checks the exit code only is not acceptable**. Two different causes often give the same code. Give the message set, or a measurement that separates the two causes. The other five rules are in [Review Checklists](references/review-checklists.md) "Acceptance Assertions": the message count, the source of the state and the input, the existence of the cited test cases, the content markers of a diff assertion, and the coverage self-check. For where an inserted guard lands, and its exemption, see section A4 of the same file. Read that section to the end when you write an assertion.
 
 ## 2. Dispatch the Independent Review
 
 A reviewer reads the full plan, plus the decision half of the record: the Decision Table and the Choice List, the evidence and the status of each Core Precondition, and the open items. The other half of the record is the review history: the Revision Table, the Closure Table, the version history, and the limits of each route. Give the second half to a reused route only. Do not give it to a scan route. A scan route that reads it inherits the conclusions of other routes. The Execution Agent reads the plan only. Do not give it either half.
 
-**Minimum setup for each round**: one reviewer that has not seen an earlier version does a full scan for new problems. It reads the full text and reports new problems. Each reused route checks the Closure Table only. It reads the plan text to check the cited positions. It does not do a full scan. The completion test of a scan route is the full text. The completion test of a reused route is the positions that the Closure Table cites. The test for reuse or a new agent is in [Multi-Route Review](references/multi-route-review.md).
+**Minimum setup for each round**: one reviewer that has not seen an earlier version does a full scan for new problems. It reads the full text and reports new problems. Each reused route checks the Closure Table only. It reads the plan text to check the cited positions. It does not do a full scan. The completion test of a scan route is the full text. The completion test of a reused route is every position that the Closure Table cites, including the rows whose status is resolved. The test for reuse or a new agent, and the handling of a round where no route can be reused, is in [Multi-Route Review](references/multi-route-review.md). The completion test of a reused route lives in two places, here and there: change both together. Replacing a test with a pointer once lost two tests.
 
 **The dispatch message decides the independence, not the change of agent.** Put these items in the message: the goal, the constraints, the entry point of the material, the duty of the route, the frozen text, and the Core Preconditions with their evidence. Leave out these items: the review history, the Author's account of the problems, and the current conclusions of other routes. Delete every sentence of the form "after we discussed it, we decided". If a tool cannot isolate the context, state which material is exposed. This rule covers the first dispatch and the scan route of each round. A reused route always holds old problems.
 

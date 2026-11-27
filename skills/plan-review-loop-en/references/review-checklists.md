@@ -98,11 +98,18 @@ If a run fails, change the exit in the plan. Use the manual path that really wor
 
 ## C. Acceptance Assertions
 
-### C1 The table must have three columns
+### C1 The table must have four columns
 
-| Recipe (the operation sequence) | Expected exit code | Expected output message set |
-|---|---|---|
-| (1) `init` (2) `register --kind shared` (3) `check --final` | 2 | `unchecked` holds "missing pass record for the current content" and does not hold "no registered file" |
+| Recipe (the operation sequence) | Where the state and the input come from | Expected exit code | Expected output message set |
+|---|---|---|---|
+| (1) `init` (2) `register --kind shared` (3) `check --final` | production path for the record; no hand-made state | 2 | `unchecked` holds "missing pass record for the current content" and does not hold "no registered file" |
+
+The second column holds one of three values: **production path**, **hand-made fixture**, or **real machine**. Two sentences decide the value, and they are not one sentence.
+
+- **A state that the assertion verifies is written by the production path.** A fixture that hand-writes that state moves the test to a path that the product does not take. The usual error: the fixture builds the state that the entry point writes, so the entry point itself stays untested. Name the producer as `file :: symbol`.
+- **An illegal or boundary input is hand-made.** No legal producer makes an absent record, a `null` content, or a top-level array. A fixture is the only way to build those inputs, and the fail-open guard, the collapse of "absent" and "null", and the falsy merge need them. Name the fixture or the script.
+
+Do not write "sample data" in this column. A claim of the production path names its producer as `file :: symbol`, the form a landing anchor already uses, so one search checks both. A hand-made cell names the fixture or the script. **A cell that names neither counts as a hand-made fixture**: a claim of the production path with no producer is a claim that no search can check.
 
 An assertion that gives the exit code only is not acceptable. **Two different causes often give the same code.** Example: "one review is missing" and "the review conclusion needs a revision" both return rc=2. A code-only check reports a pass, and one whole path stays unchecked. Separate the two causes with the message set, the written fields, or the item count.
 
@@ -138,6 +145,7 @@ Declare a zero-difference item in words: "zero difference, not counted". Without
 ### C5 Coverage self-check
 
 - Each assertion needs at least one case that turns it from red to green. If no input turns it red, the assertion tests nothing.
+- Each assertion names the channel that its recipe reads, and the channel under test. The event path, the read-back interface, and a written field are three channels. Evidence read from the read-back interface does not prove the event channel: the value can be right, and the event can still never arrive. When the two channels differ, the assertion covers the one it reads.
 - Each key path needs one regression case of the form "success, but a field did not change". Example: after a register, the item count is 1. This case catches lost data.
 - The exit code of a check command needs its own assertion for each case: an empty record, a missing key, an illegal JSON file. Do not rely on "another assertion covers it".
 
